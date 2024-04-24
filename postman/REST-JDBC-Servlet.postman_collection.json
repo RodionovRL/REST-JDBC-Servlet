@@ -1,0 +1,1560 @@
+{
+	"info": {
+		"_postman_id": "1ced4415-70e2-4b54-af2a-9e8e70a2aa6e",
+		"name": "REST-JDBC-Servlet",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Tests\" tab**\n\nTests help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/b5f280a7-4b09-48ec-857f-0a7ed99d7ef8/U2NyZWVuc2hvdCAyMDIzLTAzLTI3IGF0IDkuNDcuMjggUE0ucG5n\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) in \"Tests\" to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27054665"
+	},
+	"item": [
+		{
+			"name": "owner",
+			"item": [
+				{
+					"name": "owner create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('ownerId', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('ownerId'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Owner{{ownerId}}\",\n\t\"firstName\": \"Petr{{ownerId}}\",\n\t\"email\": \"owner{{ownerId}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/owners",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "owner create for delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('ownerIdForDel', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('ownerIdForDel'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"OwnerForDelete{{ownerIdForDel}}\",\n\t\"firstName\": \"Veniamin{{ownerIdForDel}}\",\n\t\"email\": \"OwnerForDelete{{ownerIdForDel}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/owners",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete owner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/owners?id={{ownerIdForDel}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{ownerIdForDel}}"
+								}
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get owner short",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/owners?id={{ownerId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{ownerId}}"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get owner full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/owners?id={{ownerId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{ownerId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "solution",
+			"item": [
+				{
+					"name": "solution create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('solutionId', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('solutionId'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {    ",
+									"    console.log(pm.variables.get('solutionVer'));",
+									"    console.log(pm.collectionVariables.get('ownerId'))",
+									"    pm.variables.set('solutionVer', pm.collectionVariables.get('ownerId') + pm.variables.get('solutionId'));",
+									"    console.log(pm.variables.get('solutionVer'));",
+									"} catch(err) {",
+									"    console.error(\"Ошибка при подготовке тестовых данных.\", err);",
+									"};",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Проект {{solutionVer}}\",\n\t\"version\": \"1.{{solutionVer}}\",\n\t\"ownerId\": {{ownerId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "solution create for same owner",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {    ",
+									"    console.log(pm.variables.get('solutionVer'));",
+									"    console.log(pm.collectionVariables.get('ownerId'))",
+									"    pm.variables.set('solutionVer', pm.collectionVariables.get('ownerId') + pm.variables.get('solutionId'));",
+									"    console.log(pm.variables.get('solutionVer'));",
+									"} catch(err) {",
+									"    console.error(\"Ошибка при подготовке тестовых данных.\", err);",
+									"};"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    console.log(jsonData.id);",
+									"    pm.collectionVariables.set('solutionId', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('solutionId'));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Проект {{solutionId}}\",\n\t\"version\": \"1.{{solutionVer}}\",\n\t\"ownerId\": {{ownerId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "solution create for del",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('solutionIdForDel', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('solutionIdForDel'));",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const main = async () => {",
+									"    try {    ",
+									"        pm.variables.set('solutionId', pm.collectionVariables.get('ownerId') + 3);  ",
+									"    } catch(err) {",
+									"        console.error(\"Ошибка при подготовке тестовых данных.\", err);",
+									"    }",
+									"};",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Проект for Del {{solutionIdForDel}}\",\n\t\"version\": \"1.{{solutionIdForDel}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete solution",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {    ",
+									"    ",
+									"    console.log(pm.collectionVariables.get('ownerId'))",
+									"    pm.variables.set('ownerIdForDel', pm.collectionVariables.get('ownerId') -1);",
+									"    console.log(pm.variables.get('ownerIdForDel'));",
+									"} catch(err) {",
+									"    console.error(\"Ошибка при подготовке тестовых данных.\", err);",
+									"};"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions?id={{solutionIdForDel}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{solutionIdForDel}}"
+								}
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get solution short",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/solutions?id={{solutionId}}&short=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{solutionId}}"
+								},
+								{
+									"key": "short",
+									"value": "true"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get solution full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/solutions?id={{solutionId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{solutionId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Developer",
+			"item": [
+				{
+					"name": "Developer create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('developerId', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('developerId'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Разработчик {{developerId}}\",\n\t\"firstName\": \"Стив {{developerId}}\",\n\t\"email\": \"steve{{developerId}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/developers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "create developer for del",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('developerIdForDel', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('developerIdForDel'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Разработчик{{developerIdForDel}}\",\n\t\"firstName\": \"Стив {{developerIdForDel}}\",\n\t\"email\": \"steve{{developerIdForDel}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/developers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete developer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/developers?id={{developerIdForDel}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{developerIdForDel}}"
+								}
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Get developer short",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/developers?id={{developerId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{developerId}}"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get developer full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/developers?id={{developerId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{developerId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LinkSolutionOwnerDeveloper",
+			"item": [
+				{
+					"name": "Developer create 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('developerId2', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('developerId2'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Разработчик 2{{developerId2}}\",\n\t\"firstName\": \"Стив 2{{developerId2}}\",\n\t\"email\": \"steve2{{developerId2}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/developers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "Developer create 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('developerId3', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('developerId3'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Разработчик 3 {{developerId3}}\",\n\t\"firstName\": \"Стив 3{{developerId3}}\",\n\t\"email\": \"steve3{{developerId3}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/developers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "owner create 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('ownerId2', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('ownerId2'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Owner2{{ownerId2}}\",\n\t\"firstName\": \"Petr2{{ownerId2}}\",\n\t\"email\": \"owner2{{ownerId2}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/owners",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "owner create 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    console.log(jsonData);",
+									"    pm.collectionVariables.set('ownerId3', jsonData.id);",
+									"    console.log(pm.collectionVariables.get('ownerId3'));",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"lastName\": \"Owner3{{ownerId3}}\",\n\t\"firstName\": \"Petr3{{ownerId3}}\",\n\t\"email\": \"owner3{{ownerId3}}@mail.ru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/owners",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "add owner and developer to solution",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solutionId\": {{solutionId}},\n    \"ownerId\": {{ownerId}},\n    \"developerId\": {{developerId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add developer2 to solution",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solutionId\": {{solutionId}},\n    \"developerId\": {{developerId2}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add developer3 to solution",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solutionId\": {{solutionId}},\n    \"developerId\": {{developerId3}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add owner and developer to solution2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solutionId\": {{solutionId2}},\n    \"ownerId\": {{ownerId}},\n    \"developerId\": {{developerId}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add developer2 to solution2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solutionId\": {{solutionId2}},\n    \"developerId\": {{developerId2}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/solutions/link",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions",
+								"link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get owner full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/owners?id={{ownerId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"owners"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{ownerId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get solution full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/solutions?id={{solutionId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"solutions"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{solutionId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get developer full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/developers?id={{developerId}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{developerId}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "Get developer2 full",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/developers?id={{developerId2}}&short=false",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"developers"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{developerId2}}"
+								},
+								{
+									"key": "short",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "ownerId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "ownerId2",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "ownerId3",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "solutionId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "solutionId2",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "solutionId3",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "solution",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "solutionVer",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "ownerIdForDel",
+			"value": "1"
+		},
+		{
+			"key": "solutionIdForDel",
+			"value": "1"
+		},
+		{
+			"key": "developerId",
+			"value": "0"
+		},
+		{
+			"key": "developerId2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "developerId3",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "developerIdForDel",
+			"value": "0"
+		}
+	]
+}
